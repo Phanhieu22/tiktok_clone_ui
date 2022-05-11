@@ -1,0 +1,168 @@
+$backGroundColorTopInfo: #f1f1f1;
+$colorNumber: #ff266c;
+//  end
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  min-width: 320px;
+  color: #212121;
+}
+.m {
+  background-color: #95a5a6;
+}
+.n {
+  background-color: blue;
+}
+.infoTop {
+  background-color: $backGroundColorTopInfo;
+}
+.phoneNumber {
+  padding-left: 15px;
+  height: 37px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1em;
+  color: #212121;
+  .phone {
+    display: block;
+  }
+  .phone {
+    color: $colorNumber;
+  }
+
+  img {
+    height: 7px;
+    padding-left: 8px;
+  }
+}
+.navService {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 5px;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  padding-right: 1em;
+  div:not(div:last-child) {
+    padding: 0 10px;
+    border-right: 1px solid #cccccc;
+    img {
+      width: 25px;
+    }
+  }
+  .inputSearch {
+    flex-wrap: nowrap;
+    input {
+      margin-bottom: 3px;
+      padding: 5px 0;
+      border: none;
+      background-color: $backGroundColorTopInfo;
+    }
+    img {
+      width: 16px !important;
+      transform: translateY(4px);
+    }
+  }
+  .country {
+    display: flex;
+    p {
+      line-height: 25px;
+    }
+  }
+}
+// NAV moblie start
+.fa-bars::before {
+  font-size: 25px;
+  display: none;
+}
+//nav moblie end
+.containerNav {
+  height: 89px;
+
+  .inNav {
+    margin-top: 12px;
+  }
+}
+.listItem {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+
+  .item {
+    padding-right: 15px;
+    line-height: 40px;
+    position: relative;
+    a {
+      color: #212121;
+      font-weight: 500;
+    }
+  }
+  .item a:hover {
+    color: $colorNumber;
+  }
+}
+.item:hover > a {
+  opacity: 1;
+  color: $colorNumber;
+  ~ .subNav {
+    opacity: 1;
+    z-index: 1;
+    top: 98%;
+  }
+}
+.subNav {
+  width: 230px;
+  position: absolute;
+  top: 80%;
+  left: -20%;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity linear 0.15s;
+  background: #fff;
+  border: 1px solid #f1f1f1;
+  transition: 0.2s linear;
+  .subNavItem {
+    padding-left: 5%;
+    border: 1px dotted #cccc;
+  }
+}
+.subSearchInput {
+  display: none;
+  .inputSearch {
+    line-height: 40px;
+    margin-top: 5px;
+    display: flex;
+    justify-content: flex-end;
+    input {
+      border: none;
+      padding: 10px 0;
+    }
+    img {
+      transform: translateY(4px);
+      height: 22px;
+    }
+  }
+}
+.subSearchBottom {
+  display: none;
+  .inputSearchMoblie {
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    width: 80%;
+
+    input {
+      line-height: 30px;
+      width: 92%;
+      border: none;
+    }
+
+    img {
+      transform: translateY(4px);
+    }
+  }
+}
+
+.container {
+}

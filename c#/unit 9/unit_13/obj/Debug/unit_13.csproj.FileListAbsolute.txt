@@ -1,0 +1,13 @@
+D:\c#\unit 9\unit_13\bin\Debug\unit_13.exe.config
+D:\c#\unit 9\unit_13\bin\Debug\unit_13.exe
+D:\c#\unit 9\unit_13\bin\Debug\unit_13.pdb
+D:\c#\unit 9\unit_13\obj\Debug\unit_13.csproj.AssemblyReference.cache
+D:\c#\unit 9\unit_13\obj\Debug\unit_13.Form1.resources
+D:\c#\unit 9\unit_13\obj\Debug\unit_13.menu.resources
+D:\c#\unit 9\unit_13\obj\Debug\unit_13.Properties.Resources.resources
+D:\c#\unit 9\unit_13\obj\Debug\unit_13.csproj.GenerateResource.cache
+D:\c#\unit 9\unit_13\obj\Debug\unit_13.csproj.CoreCompileInputs.cache
+D:\c#\unit 9\unit_13\obj\Debug\unit_13.exe
+D:\c#\unit 9\unit_13\obj\Debug\unit_13.pdb
+D:\c#\unit 9\unit_13\obj\Debug\unit_13.Factorial.resources
+D:\c#\unit 9\unit_13\obj\Debug\unit_13.form_calculator.resources

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+        <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test js</title>
+</head>
+
+    
+
+<h1 style="cursor:alias;">đây là một ví dụ về thay đổi hình ảnh bằng js nhúng trong html</h1>
+<img  id="hieu" src="/pic_bulboff.gif" alt="bức ảnh bóng đèn">
+<p style="
+cursor: pointer;"
+>
+    <button style="
+    cursor: pointer;" type="button" onclick="light(1) ">bật</button>
+    <button style="
+    cursor: pointer;" type="button" onclick="light(0)">tắt</button>
+    
+</p>
+<script>
+    let pic;
+    function light(h){
+        if(h==0){
+            document.getElementById("hieu").src = "/pic_bulboff.gif";
+        }  else{
+            document.getElementById("hieu").src = "/pic_bulbon.gif";
+
+        }
+    }
+</script>
+<h3>code by phan hieu</h3>
+<video width="auto" height="auto;;----" controls>
+<source src="./mov_bbb.mp4" type="video/mp4">
+    <source src="movie.ogg" type="video/ogg">
+    </video>
+    <h1>The summary element</h1>
+
+<details>
+  <summary>Epcot Center</summary>
+  <p>Epcot is a theme park at Walt Disney World Resort featuring exciting attractions, international pavilions, award-winning fireworks and seasonal special events.</p>
+</details>
+
+    
+    </body>
+
+</body>
+</html>

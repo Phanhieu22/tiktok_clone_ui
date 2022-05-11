@@ -1,0 +1,17 @@
+D:\c#\homeworkWinformApp\homeworkWinformApp\bin\Debug\homeworkWinformApp.exe.config
+D:\c#\homeworkWinformApp\homeworkWinformApp\bin\Debug\homeworkWinformApp.exe
+D:\c#\homeworkWinformApp\homeworkWinformApp\bin\Debug\homeworkWinformApp.pdb
+D:\c#\homeworkWinformApp\homeworkWinformApp\obj\Debug\homeworkWinformApp.csproj.AssemblyReference.cache
+D:\c#\homeworkWinformApp\homeworkWinformApp\obj\Debug\homeworkWinformApp.Form1.resources
+D:\c#\homeworkWinformApp\homeworkWinformApp\obj\Debug\homeworkWinformApp.Properties.Resources.resources
+D:\c#\homeworkWinformApp\homeworkWinformApp\obj\Debug\homeworkWinformApp.csproj.GenerateResource.cache
+D:\c#\homeworkWinformApp\homeworkWinformApp\obj\Debug\homeworkWinformApp.csproj.CoreCompileInputs.cache
+D:\c#\homeworkWinformApp\homeworkWinformApp\obj\Debug\homeworkWinformApp.exe
+D:\c#\homeworkWinformApp\homeworkWinformApp\obj\Debug\homeworkWinformApp.pdb
+D:\c#\homeworkWinformApp\homeworkWinformApp\obj\Debug\homeworkWinformApp.menuMdi.resources
+D:\c#\homeworkWinformApp\homeworkWinformApp\obj\Debug\homeworkWinformApp.Factorial.resources
+D:\c#\homeworkWinformApp\homeworkWinformApp\obj\Debug\homeworkWinformApp.Form_calcuator.resources
+D:\c#\homeworkWinformApp\homeworkWinformApp\obj\Debug\homeworkWinformApp.From_calculator1.resources
+D:\c#\homeworkWinformApp\homeworkWinformApp\obj\Debug\homeworkWinformApp.sumOfNumbers.resources
+D:\c#\homeworkWinformApp\homeworkWinformApp\obj\Debug\homeworkWinformApp.BSCNN_USCLN.resources
+D:\c#\homeworkWinformApp\homeworkWinformApp\obj\Debug\homeworkWinformApp.ListBox.resources

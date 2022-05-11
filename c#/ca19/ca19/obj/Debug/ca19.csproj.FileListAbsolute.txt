@@ -1,0 +1,9 @@
+D:\c#\ca19\ca19\bin\Debug\ca19.exe.config
+D:\c#\ca19\ca19\bin\Debug\ca19.exe
+D:\c#\ca19\ca19\bin\Debug\ca19.pdb
+D:\c#\ca19\ca19\obj\Debug\ca19.csproj.AssemblyReference.cache
+D:\c#\ca19\ca19\obj\Debug\ca19.Properties.Resources.resources
+D:\c#\ca19\ca19\obj\Debug\ca19.csproj.GenerateResource.cache
+D:\c#\ca19\ca19\obj\Debug\ca19.csproj.CoreCompileInputs.cache
+D:\c#\ca19\ca19\obj\Debug\ca19.exe
+D:\c#\ca19\ca19\obj\Debug\ca19.pdb

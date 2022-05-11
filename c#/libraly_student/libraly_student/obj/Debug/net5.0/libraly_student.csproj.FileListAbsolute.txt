@@ -1,0 +1,11 @@
+D:\c#\libraly_student\libraly_student\bin\Debug\net5.0\libraly_student.deps.json
+D:\c#\libraly_student\libraly_student\bin\Debug\net5.0\libraly_student.dll
+D:\c#\libraly_student\libraly_student\bin\Debug\net5.0\ref\libraly_student.dll
+D:\c#\libraly_student\libraly_student\bin\Debug\net5.0\libraly_student.pdb
+D:\c#\libraly_student\libraly_student\obj\Debug\net5.0\libraly_student.GeneratedMSBuildEditorConfig.editorconfig
+D:\c#\libraly_student\libraly_student\obj\Debug\net5.0\libraly_student.AssemblyInfoInputs.cache
+D:\c#\libraly_student\libraly_student\obj\Debug\net5.0\libraly_student.AssemblyInfo.cs
+D:\c#\libraly_student\libraly_student\obj\Debug\net5.0\libraly_student.csproj.CoreCompileInputs.cache
+D:\c#\libraly_student\libraly_student\obj\Debug\net5.0\libraly_student.dll
+D:\c#\libraly_student\libraly_student\obj\Debug\net5.0\ref\libraly_student.dll
+D:\c#\libraly_student\libraly_student\obj\Debug\net5.0\libraly_student.pdb

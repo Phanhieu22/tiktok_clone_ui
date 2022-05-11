@@ -1,0 +1,16 @@
+D:\c#\c shap 1\c shap 1\bin\Debug\net5.0\c shap 1.exe
+D:\c#\c shap 1\c shap 1\bin\Debug\net5.0\c shap 1.deps.json
+D:\c#\c shap 1\c shap 1\bin\Debug\net5.0\c shap 1.runtimeconfig.json
+D:\c#\c shap 1\c shap 1\bin\Debug\net5.0\c shap 1.runtimeconfig.dev.json
+D:\c#\c shap 1\c shap 1\bin\Debug\net5.0\c shap 1.dll
+D:\c#\c shap 1\c shap 1\bin\Debug\net5.0\ref\c shap 1.dll
+D:\c#\c shap 1\c shap 1\bin\Debug\net5.0\c shap 1.pdb
+D:\c#\c shap 1\c shap 1\obj\Debug\net5.0\c shap 1.csproj.AssemblyReference.cache
+D:\c#\c shap 1\c shap 1\obj\Debug\net5.0\c shap 1.GeneratedMSBuildEditorConfig.editorconfig
+D:\c#\c shap 1\c shap 1\obj\Debug\net5.0\c shap 1.AssemblyInfoInputs.cache
+D:\c#\c shap 1\c shap 1\obj\Debug\net5.0\c shap 1.AssemblyInfo.cs
+D:\c#\c shap 1\c shap 1\obj\Debug\net5.0\c shap 1.csproj.CoreCompileInputs.cache
+D:\c#\c shap 1\c shap 1\obj\Debug\net5.0\c shap 1.dll
+D:\c#\c shap 1\c shap 1\obj\Debug\net5.0\ref\c shap 1.dll
+D:\c#\c shap 1\c shap 1\obj\Debug\net5.0\c shap 1.pdb
+D:\c#\c shap 1\c shap 1\obj\Debug\net5.0\c shap 1.genruntimeconfig.cache

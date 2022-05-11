@@ -1,0 +1,12 @@
+D:\c#\managerBooksInTheLibraly\managerBooksInTheLibraly\bin\Debug\managerBooksInTheLibraly.exe.config
+D:\c#\managerBooksInTheLibraly\managerBooksInTheLibraly\bin\Debug\managerBooksInTheLibraly.exe
+D:\c#\managerBooksInTheLibraly\managerBooksInTheLibraly\bin\Debug\managerBooksInTheLibraly.pdb
+D:\c#\managerBooksInTheLibraly\managerBooksInTheLibraly\obj\Debug\managerBooksInTheLibraly.csproj.AssemblyReference.cache
+D:\c#\managerBooksInTheLibraly\managerBooksInTheLibraly\obj\Debug\managerBooksInTheLibraly.Form1.resources
+D:\c#\managerBooksInTheLibraly\managerBooksInTheLibraly\obj\Debug\managerBooksInTheLibraly.Properties.Resources.resources
+D:\c#\managerBooksInTheLibraly\managerBooksInTheLibraly\obj\Debug\managerBooksInTheLibraly.csproj.GenerateResource.cache
+D:\c#\managerBooksInTheLibraly\managerBooksInTheLibraly\obj\Debug\managerBooksInTheLibraly.csproj.CoreCompileInputs.cache
+D:\c#\managerBooksInTheLibraly\managerBooksInTheLibraly\obj\Debug\managerBooksInTheLibraly.exe
+D:\c#\managerBooksInTheLibraly\managerBooksInTheLibraly\obj\Debug\managerBooksInTheLibraly.pdb
+D:\c#\managerBooksInTheLibraly\managerBooksInTheLibraly\obj\Debug\managerBooksInTheLibraly.FormMdi.resources
+D:\c#\managerBooksInTheLibraly\managerBooksInTheLibraly\obj\Debug\managerBooksInTheLibraly.Properties.menuMDI.resources

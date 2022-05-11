@@ -1,0 +1,8 @@
+D:\c#\BaiKiemTra_PhanDucHieu\cau1\obj\Debug\cau1.Form1.resources
+D:\c#\BaiKiemTra_PhanDucHieu\cau1\obj\Debug\cau1.Properties.Resources.resources
+D:\c#\BaiKiemTra_PhanDucHieu\cau1\obj\Debug\cau1.Form1.aa.resources
+D:\c#\BaiKiemTra_PhanDucHieu\cau1\obj\Debug\cau2.csproj.GenerateResource.cache
+D:\c#\BaiKiemTra_PhanDucHieu\cau1\obj\Debug\cau2.csproj.CoreCompileInputs.cache
+D:\c#\BaiKiemTra_PhanDucHieu\cau1\obj\Debug\cau1.exe
+D:\c#\BaiKiemTra_PhanDucHieu\cau1\obj\Debug\cau1.pdb
+D:\c#\BaiKiemTra_PhanDucHieu\cau1\obj\Debug\cau2.csproj.AssemblyReference.cache

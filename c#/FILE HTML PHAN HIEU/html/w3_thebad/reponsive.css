@@ -1,0 +1,26 @@
+/* phan danh cho pd*/
+@media(min-width:1024px){
+    #main{
+        
+    }
+}
+
+/* PHAN DANH CHO ipad */
+@media(min-width:740px) and (max-width:1023px){
+    #content >.content_heading > p {
+        text-align: justify;
+        padding: 0px 45px;
+    }
+
+    #date {
+        width: 768px;
+        height: 590px;
+        background-color: #ffff;
+        margin-top: 40px;
+    }
+    
+
+/* PHAN DANH CHO MOBILE */
+@media(max-width:740px){ 
+    
+}

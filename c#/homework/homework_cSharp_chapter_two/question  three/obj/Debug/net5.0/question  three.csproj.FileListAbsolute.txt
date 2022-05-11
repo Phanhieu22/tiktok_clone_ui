@@ -1,0 +1,16 @@
+D:\c#\homework\homework_cSharp_chapter_two\question  three\bin\Debug\net5.0\question  three.exe
+D:\c#\homework\homework_cSharp_chapter_two\question  three\bin\Debug\net5.0\question  three.deps.json
+D:\c#\homework\homework_cSharp_chapter_two\question  three\bin\Debug\net5.0\question  three.runtimeconfig.json
+D:\c#\homework\homework_cSharp_chapter_two\question  three\bin\Debug\net5.0\question  three.runtimeconfig.dev.json
+D:\c#\homework\homework_cSharp_chapter_two\question  three\bin\Debug\net5.0\question  three.dll
+D:\c#\homework\homework_cSharp_chapter_two\question  three\bin\Debug\net5.0\ref\question  three.dll
+D:\c#\homework\homework_cSharp_chapter_two\question  three\bin\Debug\net5.0\question  three.pdb
+D:\c#\homework\homework_cSharp_chapter_two\question  three\obj\Debug\net5.0\question  three.csproj.AssemblyReference.cache
+D:\c#\homework\homework_cSharp_chapter_two\question  three\obj\Debug\net5.0\question  three.GeneratedMSBuildEditorConfig.editorconfig
+D:\c#\homework\homework_cSharp_chapter_two\question  three\obj\Debug\net5.0\question  three.AssemblyInfoInputs.cache
+D:\c#\homework\homework_cSharp_chapter_two\question  three\obj\Debug\net5.0\question  three.AssemblyInfo.cs
+D:\c#\homework\homework_cSharp_chapter_two\question  three\obj\Debug\net5.0\question  three.csproj.CoreCompileInputs.cache
+D:\c#\homework\homework_cSharp_chapter_two\question  three\obj\Debug\net5.0\question  three.dll
+D:\c#\homework\homework_cSharp_chapter_two\question  three\obj\Debug\net5.0\ref\question  three.dll
+D:\c#\homework\homework_cSharp_chapter_two\question  three\obj\Debug\net5.0\question  three.pdb
+D:\c#\homework\homework_cSharp_chapter_two\question  three\obj\Debug\net5.0\question  three.genruntimeconfig.cache

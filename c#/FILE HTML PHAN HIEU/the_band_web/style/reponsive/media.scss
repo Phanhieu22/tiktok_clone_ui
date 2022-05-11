@@ -1,0 +1,29 @@
+@media (min-width: 0px) and (max-width: 600px) {
+  nav {
+    display: none;
+  }
+  .search {
+    display: none;
+  }
+  header {
+  }
+  .introBaner {
+    display: none;
+  }
+  .member {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    .member {
+      img {
+        width: 200px !important;
+        height: 20rem !important;
+      }
+    }
+  }
+}
+@media (min-width: 601px) {
+  #navMobile {
+    display: none;
+  }
+}

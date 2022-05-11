@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="exsample"><ul class="demo"></ul></div>
+    <script>
+      const postAPI = "https://jsonplaceholder.typicode.com/comments";
+      fetch(postAPI)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (posts) {
+          var htmls = posts.map(function (currenrValue) {
+            return `<li>${currenrValue.email}
+                       <p> ${currenrValue.name}</p>
+                       </li>`;
+          });
+          var html2 = htmls.join("");
+          document.querySelector(".demo").innerHTML = html2;
+        });
+
+      console.log(html);
+    </script>
+  </body>
+</html>

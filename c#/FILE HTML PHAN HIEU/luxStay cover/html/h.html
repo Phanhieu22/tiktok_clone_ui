@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <input type="text">
+   <input type="checkbox">
+   <select name="hieu" id="hieu" value ="phan hieu">
+       <option value=""> đang học là</option>
+       <option value="hieu học js">js</option>
+       <option value="hieu hoc c++">c++</option>
+       <option value="hieu học html">html</option>
+   </select>
+   <h3>sự kiện keyup và keydown</h3>
+   <script>
+var inputText1 = document.querySelector('input[type ="text"]')
+inputText1.onchange = function(e){ // có thể dùng oninput để nó trả về giá trị tức thời lúc bạn nhập chữ vào bàn phím
+    console.log(e.target.value)
+}
+       var inputText2 = document.querySelector('input[type="checkbox"]');
+       inputText2.onchange = function(e){
+           console.log(e.target.checked)
+       }
+       var inputElement3 =document.querySelector('select') ;
+       inputElement3.onchange = function(e){
+           console.log(e.target.value);
+       }
+    //   phần keyup
+    inputText1.onkeyup = function(e){
+        console.log(e.which);
+       switch(e.which){
+           case 82:
+            document.querySelector("h3").style.color = 'red';
+            break;
+            case 71:
+            document.querySelector("h3").style.color = 'blue';
+            break;
+        }
+    }
+    document.querySelector('body').addEventListener('unload',function(){
+        alert('thank you active my web')
+    })
+   </script>
+</body>
+</html>

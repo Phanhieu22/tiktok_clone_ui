@@ -1,0 +1,830 @@
+;
+RM.fetch({
+  "video_popups": ".youtube_video",
+  "image_popups": ".image_popup",
+  "image_popups_no_actions": ".image_popup_no_actions",
+  "inline_popups": ".inline_popup",
+  "iframe_popups": ".iframe_popup",
+  "gallery_popups": ".gallery_popup",
+  "register_popups": ".register_popup",
+  "inline_popup_multi": ".inline_popup_multi",
+  "inline_popups_auto": ".mfp-auto",
+  "popup_360": "[data-popup-pano]",
+  "ajax_detail_mfp": "[data-ajax-detail]",
+  "areavip_popups": "[data-benefit-type]",
+  "rueda_prensa_mfp": "[data-streaming-player]"
+});
+RM.ready(function() {
+  var swiperCongreso;
+
+  function require(url, callback) {
+    var e = document.createElement("script");
+    e.src = url;
+    e.type = "text/javascript";
+    e.addEventListener('load', callback);
+    document.getElementsByTagName("head")[0].appendChild(e);
+  }
+
+  function loadList(list, i, callback) {
+    require(list[i], function() {
+      if (i < list.length - 1) {
+        loadList(list, i + 1, callback);
+      } else {
+        callback();
+      }
+    });
+  }
+  var social_btns = function(item, content) {
+    if (!(item instanceof jQuery)) {
+      item = $(item);
+    }
+    var lista_enlaces_sociales = item.next('.m_share');
+    var url = item.data("gallery");
+    var es_enlace_a_galeria = item.hasClass('image_popup');
+    var enlace;
+    if (url) {
+      enlace = content.find(".mfp_view_more");
+      enlace.attr("href", url).css('display', 'block');
+      if (es_enlace_a_galeria) {
+        var nuevo_enlace = $('<a href="' + url + '"> ');
+        activa_gallery_popups(nuevo_enlace);
+        enlace.on('click', function(e) {
+          e.preventDefault();
+          $.magnificPopup.close();
+          RM.utils.pon_global_loading();
+          setTimeout(function() {
+            nuevo_enlace.trigger('click')
+          }, 1000);
+        })
+      }
+    } else {
+      content.find(".mfp_view_more").hide()
+    }
+    _(["facebook", "twitter", "whatsapp"]).each(function(social) {
+      var url = item.data(social.replace("_", "")),
+        btn = content.find(".m_share_" + social);
+      if (typeof url == 'undefined' || url == '') {
+        url = lista_enlaces_sociales.find('.m_share_' + social).find('a').attr('href');
+      }
+      if (!btn.length || (typeof url == 'undefined' || url == '')) {
+        btn.hide();
+      } else {
+        btn.find("a").attr("href", url)
+      }
+    }) // each(social)
+    content.find(".m_share_inline").m_highlight();
+  }
+  if (RM.dom.popup_360) {
+    RM.dom.popup_360.each(function(element) {
+      element = $(this);
+      enlace = element.attr("href");
+      var tmpl = _($("#popup360-mfp-template").html()).chain().trim().template().value(),
+        source = tmpl({
+          title: element.attr("title") || element.text()
+        });
+      element.magnificPopup({
+        removalDelay: 0,
+        mainClass: 'container_360',
+        items: {
+          type: "inline",
+          src: source
+        },
+        callbacks: {
+          open: function() {
+            var height = $(window).height();
+            var _this = this
+            target = _this.currItem.inlineElement.find("#m_popup_360").attr('id'),
+              showInfo = function() {
+                var $gyroIcon = $('.psv-gyroscope-button');
+                if ($gyroIcon.is(":visible")) {
+                  var idioma = $('html').attr('lang');
+                  switch (idioma) {
+                    case 'es':
+                      var popText = "Toca aquí para activar";
+                    case 'en':
+                      var popText = "Touch here to activate";
+                    case 'ja':
+                      var popText = "有効にするにはここをクリック";
+                    default:
+                      var popText = "Toca aquí para activar";
+                  }
+                  var $popover = $('<div id="infoBox">' + popText + '</div>');
+                  $('.mfp-360 .mfp-inline').append($popover);
+                  var icoPos = $gyroIcon.offset();
+                  $popover.offset({
+                    top: icoPos.top - 46,
+                    left: icoPos.left - 147
+                  });
+                  $popover.fadeIn(800, function() {
+                    $(this).delay(2500).fadeOut(800);
+                  });
+                }
+              }
+            var foto360Init = function(target) {
+              var viewer = new PhotoSphereViewer({
+                panorama: enlace,
+                container: target,
+                loading_img: '/StaticFiles/RealMadridResponsive/images/static/photosphere-logo.gif',
+                loading_txt: 'Cargando...',
+                navbar: ['autorotate', 'zoom', 'spacer-1', 'gyroscope'],
+                default_fov: 60,
+                gyroscope: true,
+                webgl: true,
+                time_anim: false,
+                transition: {
+                  duration: 500,
+                  loader: true,
+                  blur: false
+                }
+              });
+              viewer.on('ready', function() {
+                showInfo();
+              });
+            }
+            if (typeof PhotoSphereViewer == 'undefined') {
+              var linkElem = document.createElement('link');
+              document.getElementsByTagName('head')[0].appendChild(linkElem);
+              linkElem.rel = 'stylesheet';
+              linkElem.type = 'text/css';
+              linkElem.href = '/StaticFiles/RealMadridResponsive/stylesheets/photo-sphere-viewer.css';
+              $.ajaxSetup({
+                cache: true
+              });
+              $.getScript('/StaticFiles/RealMadridResponsive/javascripts/foto360.js', function() {
+                foto360Init(target);
+              });
+            } else {
+              foto360Init(target);
+            }
+          }
+        }
+      })
+    })
+  }
+  if (RM.dom.ajax_detail_mfp) {
+    if (Device.is_mobile || Device.is_tablet) {
+      var oldURL = window.location.href;
+      $('#detalle_mfp .loader').hide();
+      var tmpl = _($("#detalle-mfp-template").html()).chain().trim().template().value();
+      $('body').append(tmpl)
+      var inbox = document.querySelector('#detalle_mfp');
+      $(RM.dom.ajax_detail_mfp).each(function() {
+        var link_detail = $(this).attr('href');
+        var cuerpo = $(this).attr('data-ajax-detail');
+        $(this).magnificPopup({
+          type: 'inline',
+          removalDelay: 1000,
+          mainClass: 'detail_popup',
+          fixedContentPos: true,
+          callbacks: {
+            beforeOpen: function() {
+              $('#detalle_mfp .loader').show();
+              $.ajax({
+                url: link_detail,
+                method: 'GET',
+                dataType: 'html',
+                cache: true,
+                error: function(err) {
+                  RM.utils.log(err);
+                },
+                success: function(data) {
+                  $('#detalle_mfp .loader').hide();
+                  var contenido = $(data).find(cuerpo);
+                  $('#detalle_mfp').append(contenido);
+                  if ($('.cmd_compras').length > 0) {
+                    var elemento = $('.cmd_compras');
+                    $(elemento).find('.carrusel_match').each(function() {
+                      var event = $(this).find('.match').length;
+                    })
+                    var container = elemento.find('.entradas_container');
+                    $(container).each(function() {
+                      var self = $(this);
+                      swiperCongreso = new Swiper(self, {
+                        centeredSlides: false,
+                        loop: false,
+                        initialSlide: 0,
+                        slideClass: 'match',
+                        slidesPerView: 'auto',
+                        spaceBetween: 15,
+                        wrapperClass: 'carrusel_match'
+                      });
+                    });
+                  }
+                }
+              })
+              history.pushState(null, null, link_detail);
+              $(window).on('popstate', function() {
+                history.pushState(null, null, oldURL);
+                var magnificPopup = $.magnificPopup.instance;
+                magnificPopup.close();
+              });
+            },
+            open: function() {
+              $('#detalle_mfp').on('click', '.m_share_action', function(e) {
+                e.preventDefault();
+                $(this).parents('.m_share').toggleClass("expanded");
+              })
+              var _startY;
+              var altura;
+              var tope;
+              var inboxparent = $(inbox).parents('.mfp-content');
+              inbox.addEventListener('touchstart', function(e) {
+                _startY = e.touches[0].pageY;
+              }, {
+                passive: true
+              });
+              inbox.addEventListener('touchend', function(e) {
+                if (tope > 200) {
+                  var magnificPopup = $.magnificPopup.instance;
+                  magnificPopup.close();
+                } else {
+                  inboxparent.css('top', 0);
+                }
+              });
+              inbox.addEventListener('touchmove', function(e) {
+                for (var i = 0; i < e.touches.length; i++) {
+                  altura = (e.touches[i].pageY - _startY);
+                  if (inbox.scrollTop === 0) {
+                    inboxparent.css('top', altura);
+                    tope = altura;
+                  }
+                }
+              }, {
+                passive: true
+              });
+            },
+            beforeClose: function() {
+              if ($('.cmd_compras')) {
+                swiperCongreso.destroy();
+                swiperCongreso = undefined;
+                $('.carrusel_match').removeAttr('style');
+                $('.match').removeAttr('style');
+              }
+              $('#detalle_mfp').animate({
+                scrollTop: 0
+              }, 0);
+              inbox.removeEventListener('touchstart', function(e) {}, {
+                passive: true
+              });
+              inbox.removeEventListener('touchmove', function(e) {}, {
+                passive: true
+              });
+              inbox.removeEventListener('touchend', function(e) {}, {
+                passive: true
+              });
+            },
+            close: function() {
+              history.pushState(null, null, oldURL);
+              $('#detalle_mfp').off('click');
+              $('#detalle_mfp').find('*').not('.loader').remove();
+            }
+          }
+        })
+      })
+    }
+  }
+  if (RM.dom.video_popups) {
+    // RM.utils.log('RM.dom.video_popups');
+    var video_popup_tmpl = _.trim($("#iframe-mfp-template").html()),
+      iframe_options = {
+        type: "iframe",
+        mainClass: "mfp-zoom-out",
+        removalDelay: 1000,
+        iframe: {
+          markup: video_popup_tmpl,
+          patterns: {
+            youtube: {
+              index: 'youtube.com',
+              id: 'v=',
+              src: '//www.youtube.com/embed/%id%?autoplay=1'
+            }
+          }
+        },
+        callbacks: {
+          updateStatus: function(data) {
+            var item = this.currItem.el,
+              tmpl = this.currTemplate.iframe;
+            tmpl.find(".mfp_title").text(item.attr("title")).end().find(".m_share_inline").m_highlight();
+            social_btns(this.currItem.el, tmpl)
+          }
+        }
+      };
+    //
+    RM.dom.video_popups.each(function(i, element) {
+      element = $(element);
+      var thatelement = element;
+      // si tiene data-src se usa el data-src, si no se usa el href
+      // para que en todos los casos vaya igual, el enlace al video va en data-src
+      // pero si es youtube es necesario el href, así que se pone con javascript a partir del data-src
+      var enlace = element.data("src-hls") || element.data("src");
+      if (typeof enlace === 'undefined' || enlace == '') {
+        enlace = element.attr("href");
+      }
+      // se quita el posible parámetro vauto, que hace que los videos de youtube no se cargue
+      enlace = enlace.replace('?vauto=1', '').replace('&vauto=1', '');
+      // var alink = [];
+      // alink.push(enlace);
+      // var blob = new Blob(alink, {type : 'application/x-mpegURL'});
+      // var objectURL = URL.createObjectURL(blob);
+      element.attr('href', enlace);
+      var extension = '';
+      var path = enlace.toLowerCase().split('/').pop();
+      if(path) {
+        extension = 'mp4';
+        if(path.indexOf('mpd') !== -1) extension = 'mpd';
+        if(path.indexOf('f4m') !== -1) extension = 'f4m';
+        if(path.indexOf('mp4') !== -1) extension = 'mp4';
+        if(path.indexOf('m3u8') !== -1) extension = 'm3u8';
+      }
+      if (extension == "mp4" || extension == "m3u8") { // flowplayer
+        RM.fn.config_underscore_templates();
+        var tmpl = _($("#flow-mfp-template").html()).chain().trim().template().value(),
+          source = tmpl({
+            title: element.attr("title") || element.text()
+          });
+        // Si hay un video de fondo en el header, lo recuperamos para pausarlo/iniciarlo con el popup del vídeo ppal
+        var _bgvid = $('.total_header .video_back:visible')[0];
+        element.magnificPopup({
+          removalDelay: 0,
+          items: {
+            type: "inline",
+            src: source
+          },
+          callbacks: {
+            beforeOpen: function() {
+              if (_bgvid) {
+                if (_bgvid.currentTime > 0 && !_bgvid.paused && !_bgvid.ended && _bgvid.readyState > 2) {
+                  _bgvid.pause();
+                }
+              }
+            },
+            open: function(data, element) {
+              var _this = this,
+                videoInit = function(popEl) {
+                  var target = popEl.currItem.inlineElement.find(".m_popup_player");
+                  RM.videojs_hd.instancia_video({
+                    datos: thatelement,
+                    target: target,
+                    autoplay: true
+                  });
+                  social_btns(popEl.ev.context, popEl.currItem.inlineElement);
+                };
+              if (typeof RM.videojs_hd == 'undefined') {
+                // Carga video y Streamroot sin jquery
+                // var jsList = ['/StaticFiles/RealMadridResponsive/javascripts/video_player.js', '//cdn.streamroot.io/videojs-hlsjs-plugin/1/stable/videojs-hlsjs-plugin.js', '//cdn.streamroot.io/videojs-hls-dna-plugin/1/stable/videojs-hls-dna-plugin.js#streamrootKey=d8fd9915-4ff7-4e00-aee7-db0e886d0dfb'];
+                var jsList = ['/StaticFiles/RealMadridResponsive/javascripts/video_player.js'];
+                if (typeof google == 'undefined') {
+                  // jsList = ['//imasdk.googleapis.com/js/sdkloader/ima3.js', '/StaticFiles/RealMadridResponsive/javascripts/video_player.js', '//cdn.streamroot.io/videojs-hlsjs-plugin/1/stable/videojs-hlsjs-plugin.js', '//cdn.streamroot.io/videojs-hls-dna-plugin/1/stable/videojs-hls-dna-plugin.js#streamrootKey=d8fd9915-4ff7-4e00-aee7-db0e886d0dfb'];
+                  jsList = ['//imasdk.googleapis.com/js/sdkloader/ima3.js', '/StaticFiles/RealMadridResponsive/javascripts/video_player.js'];
+                }
+                loadList(jsList, 0, function() {
+                  videoInit(_this);
+                });
+              } else {
+                videoInit(_this);
+              }
+            }, // open
+            beforeClose: function(data, element) {
+              if (_bgvid) {
+                if ((_bgvid.paused || _bgvid.ended) && _bgvid.readyState > 2) {
+                  _bgvid.play();
+                }
+              }
+              var $player = this.currItem.inlineElement.find('.video-js').attr('id');
+              var tech = videojs($player).techName_;
+              if (tech == 'Flash') {
+                if ($player) {
+                  videojs($player).dispose();
+                }
+              }
+            }
+          }
+        });
+      } else { // iframe youtube
+        element.magnificPopup(iframe_options);
+      }
+    }); // RM.dom.video_popups.each
+    //
+    // lightbox automático
+    var vauto = RM.utils.get_url_param('vauto');
+    if (vauto == '1') {
+      var mienlace = RM.dom.video_popups.not('.m_related').first();
+      var comprueba_state_vauto = setInterval(function() {
+        if (document.readyState === "complete") {
+          clearInterval(comprueba_state_vauto);
+          mienlace.trigger('click');
+          activar_vauto = false;
+        }
+      }, 100);
+    }
+  }
+  if (RM.dom.image_popups) {
+    var image_template = _.trim($("#image-mfp-template").html()),
+      image_options = {
+        mainClass: "mfp-zoom-out",
+        type: "image",
+        mainClass: "mfp-zoom-out",
+        removalDelay: 1000,
+        image: {
+          markup: image_template,
+          titleSrc: "title"
+        },
+        callbacks: {
+          open: function() {
+            social_btns(this.currItem.el, this.content)
+          }
+        }
+      }
+    RM.dom.image_popups.magnificPopup(image_options);
+  }
+  if (RM.dom.image_popups_no_actions) {
+    var image_template = _.trim($("#image-mfp-template-no-actions").html()),
+      image_options = {
+        mainClass: "mfp-zoom-out",
+        type: "image",
+        mainClass: "mfp-zoom-out",
+        removalDelay: 1000,
+        image: {
+          markup: image_template,
+          titleSrc: "title"
+        }
+      }
+    RM.dom.image_popups_no_actions.magnificPopup(image_options);
+  }
+  // popups dentro de popups:
+  RM.fn.init_inline_popups_multiple = function(element) {
+    element.each(function() {
+      var oculta_lb = function(contenido) {
+        contenido.addClass('mfp-hide');
+        $('body').append(contenido)
+        $.magnificPopup.instance.main_content.css('display', 'block');
+        $.magnificPopup.instance.main_content.find('.mfp-close').on('click', function() {
+          $.magnificPopup.close();
+        });
+        $('.mfp-wrap').off().on('click', function(e) {
+          // si se hace click fuera del lightbox
+          if (!$(event.target).closest('.mfp-content').length && !$(event.target).closest('.mfp-close').length) {
+            $.magnificPopup.close();
+          }
+        })
+        return false;
+      }
+      $(this).on('click', function(e) {
+        e.preventDefault();
+        var contenido = $($(this).attr('href'));
+        if (typeof $.magnificPopup.instance.main_content == 'undefined') {
+          $.magnificPopup.instance.main_content = $.magnificPopup.instance.content;
+        }
+        $.magnificPopup.instance.main_content.css('display', 'none');
+        $.magnificPopup.instance.content.after(contenido);
+        contenido.removeClass('mfp-hide')
+        $('.mfp-wrap').off().on('click', function(e) {
+          // si se hace click fuera del lightbox
+          if (!$(event.target).closest('.mfp-content').length) {
+            oculta_lb(contenido);
+          }
+        })
+        contenido.find('.mfp-close').on('click', function() {
+          oculta_lb(contenido);
+        });
+      });
+    })
+  }
+  RM.fn.init_inline_popups = function(element, options) {
+    var inline_options = $.extend({}, {
+      type: 'inline',
+      midClick: true
+    }, options);
+    element.each(function() {
+      // si el enlace está ya en un lightbox (clase .mfp-inline):
+      if ($(this).closest('.mfp-inline').length) {
+        //alert("dentro de lightbox")
+        RM.fn.init_inline_popups_multiple($(this));
+      } else {
+        $(this).magnificPopup(inline_options);
+      }
+      if ($(this).hasClass('auto_click')) {
+        $(this).trigger('click');
+      }
+    })
+    //element.magnificPopup(inline_options);
+  }
+  if (RM.dom.inline_popups) {
+    RM.fn.init_inline_popups(RM.dom.inline_popups);
+  }
+  //iframe popups
+  RM.fn.init_iframe_popups = function(element, options) {
+    var iframe_options = $.extend({}, {
+      type: 'iframe',
+      midClick: true
+    }, options);
+    element.each(function() {
+      $(this).magnificPopup(iframe_options);
+      if ($(this).hasClass('auto_click')) {
+        $(this).trigger('click');
+      }
+    })
+    //element.magnificPopup(inline_options);
+  }
+  if (RM.dom.iframe_popups) {
+    RM.fn.init_iframe_popups(RM.dom.iframe_popups);
+  }
+  // enlaces a lightbox dentro de un lightbox
+  if (RM.dom.inline_popup_multi) {
+    RM.fn.init_inline_popups_multiple(RM.dom.inline_popup_multi);
+  }
+  if (RM.dom.inline_popups_auto) {
+    RM.dom.inline_popups_auto.first().each(function() {
+      var target_id = RM.utils.pon_id_si_no_tiene($(this), 'lb_'),
+        enlace = $('<a href="#' + target_id + '">'),
+        inline_options = {
+          type: 'inline',
+          midClick: true
+        };
+      enlace.magnificPopup(inline_options);
+      enlace.trigger('click');
+    })
+  }
+  var activa_gallery_popups = function(elementos) {
+    elementos.each(function(i, element) {
+      element = $(element);
+      var tmpl = _($("#gallery-mfp-template").html()).chain().trim().template().value(),
+        source = tmpl(),
+        enlace = (element.attr('data-href')) ? element.attr('data-href') : element.attr('href');
+      element.on('click', RM.utils.pon_global_loading)
+      // se lanza el lightbox
+      element.magnificPopup({
+        mainClass: "mfp-gallery",
+        items: {
+          type: "inline",
+          src: source
+        },
+        callbacks: {
+          close: function() {
+            //Quito el hash para las galerías
+            history.pushState("", document.title, window.location.pathname);
+          },
+          open: function(data, element) {
+            //RM.utils.quita_global_loading();
+            // =============================================================
+            $.ajax({
+              url: enlace,
+              error: function(err) {
+                alert('Se ha producido un error en la carga de la galería')
+                RM.utils.quita_global_loading();
+                $.magnificPopup.close();
+                RM.utils.log(err);
+              },
+              success: function(data) {
+                var contenedor = $("#mfp-gallery-cont");
+                var contenido = $(data).filter('#page-content');
+                // se obtienen los scrips de ga presentes en la página de la galería, que son los que están antes del elemento contenedor
+                // el prevAll los devuelve hacia atrás, hay que invertirlos con .get().reverse()
+                //var script_ga = contenido.prevAll('script').not('head script').get().reverse();
+                var script_ga = contenido.prevAll('script').get().reverse();
+                /* provisional para que no se añadan los scripts de la cabecera */
+                $(script_ga).each(function() {
+                  if ($.trim($(this).html()) != '') {
+                    contenedor.append($(this));
+                  }
+                })
+                /**/
+                //contenedor.append(script_ga);
+                contenedor.append(contenido);
+                contenedor.unbind('touchmove');
+                initGallery();
+                RM.utils.quita_global_loading();
+                if (Device.is_mobile || Device.is_tablet) {
+                  contenedor.bind('touchmove', function(e) {
+                    e.preventDefault();
+                  })
+                }
+                var boton_close = $('.mfp-gallery .mfp-close');
+                var boton_close_hiden = contenido.find('.m_photo_gallery_header_nav');
+                if(boton_close_hiden.length) {
+                  var mitop = boton_close_hiden.position().top + 12;
+                  boton_close.css('top', mitop + 'px')
+                }
+                if (contenido.find("[data-ads-template='promos_galeria']").length && contenido.find("[data-ads-remote='promos_galeria']").length) {
+                  var promos = new RM.Promos({
+                    group: "promos_galeria"
+                  });
+                }
+                var enlaces_galerias = $('.m_related_gallery_content a, .m_related_gallery_actions .next');
+                enlaces_galerias.each(function() {
+                  var nuevo_enlace = $('<a href="' + $(this).attr('href') + '"> ');
+                  activa_gallery_popups(nuevo_enlace);
+                  $(this).on('click', function(e) {
+                    e.preventDefault();
+                    $.magnificPopup.close();
+                    RM.utils.pon_global_loading();
+                    setTimeout(function() {
+                      nuevo_enlace.trigger('click')
+                    }, 1000);
+                  })
+                });
+                //Activamos botón de compartir en redes sociales
+                $('.share-menu-toggle').on('click', function(e) {
+                  e.preventDefault();
+                  $(this).toggleClass('show_share_btns');
+                })
+              }
+            });
+            // =============================================================
+          } // open
+        }
+      });
+    });
+  }
+  var auto_gallery = function(gal_){
+    var mienlace = gal_.not('.m_related').first();
+    var comprueba_state_gauto = setInterval(function() {
+      if (document.readyState === "complete") {
+        clearInterval(comprueba_state_gauto);
+        mienlace.trigger('click');
+        // activar_gauto = false;
+      }
+    }, 100);
+  }
+  if (RM.dom.gallery_popups) {
+    activa_gallery_popups(RM.dom.gallery_popups);
+    // Gallery automático (gauto)
+    var gauto = RM.utils.get_url_param('gauto');
+    if (gauto == '1') {
+      auto_gallery(RM.dom.gallery_popups);
+    }
+  } // RM.dom.gallery_popups
+  // Popups de los beneficios de Area Vip.
+  if (RM.dom.areavip_popups) {
+    RM.dom.areavip_popups.each(function(element) {
+      element = $(this);
+      var icono_title = element.attr("data-icon");
+      var link = element.attr("href");
+      var tipo = element.attr("data-benefit-type");
+      var tmpl = _($("#areavip-mfp-template").html()).chain().trim().template().value();
+      var fixed = 'auto';
+      var content = '';
+      switch (tipo) {
+        case 'inline':
+          content = $(link).html();
+          break;
+        case 'iframe':
+          content = '<iframe class="mfp-iframe" frameborder="0" allow="fullscreen" src="' + link + '"></iframe>';
+          break;
+        case 'image':
+          content = '<img src="' + link + '">';
+          break;
+      }
+      if (Device.is_mobile || Device.is_tablet) {
+        fixed = 'true';
+      }
+      var source = tmpl({
+        title_icon: icono_title,
+        title: element.attr("title"),
+        contenido: content
+      });
+      // if ((Device.is_mobile || Device.is_tablet) && tipo == 'iframe') {
+      //   element.on('click', function(e) {
+      //     e.preventDefault();
+      //     window.open(link,'_blank');
+      //   });
+      // } else {
+      element.magnificPopup({
+        mainClass: 'mfp-av-type-' + tipo,
+        fixedContentPos: fixed,
+        overflowY: 'auto',
+        items: {
+          type: 'inline',
+          src: source
+        }
+      });
+      // }
+    });
+  }
+  if (RM.dom.rueda_prensa_mfp) {
+    RM.dom.rueda_prensa_mfp.each(function(i, element) {
+      var element = $(element);
+      var thatelement = element;
+      var enlace = element.attr("href");
+      var tmpl = _($("#streaming-mfp-template").html()).chain().trim().template().value(),
+        source = tmpl({
+          title: element.attr("title") || element.text()
+        });
+      var _bgvid = $('.total_header .video_back:visible')[0];
+      var isDirect = (RM.dom.rueda_prensa_mfp.data('streaming-player') == 'directo') ? true : false;
+      if(isDirect) {
+        $.magnificPopup.open({
+            removalDelay: 0,
+            items: {
+              type: "inline",
+              src: source
+            },
+            callbacks: {
+              beforeOpen: function() {
+                if (_bgvid) {
+                  if (_bgvid.currentTime > 0 && !_bgvid.paused && !_bgvid.ended && _bgvid.readyState > 2) {
+                    _bgvid.pause();
+                  }
+                }
+              },
+              open: function(data, element) {
+                var _this = this,
+                  videoInit = function(popEl) {
+                    var target = popEl.currItem.inlineElement.find(".m_streaming_player");
+                    RM.videojs_hd.instancia_video({
+                      datos: thatelement,
+                      target: target,
+                      autoplay: true,
+                      muted: true
+                    });
+                  };
+                if (typeof RM.videojs_hd == 'undefined') {
+                  // Carga video y Streamroot sin jquery
+                  // var jsList = ['/StaticFiles/RealMadridResponsive/javascripts/video_player.js', '//cdn.streamroot.io/videojs-hlsjs-plugin/1/stable/videojs-hlsjs-plugin.js', '//cdn.streamroot.io/videojs-hls-dna-plugin/1/stable/videojs-hls-dna-plugin.js#streamrootKey=d8fd9915-4ff7-4e00-aee7-db0e886d0dfb'];
+                  var jsList = ['/StaticFiles/RealMadridResponsive/javascripts/video_player.js'];
+                  if (typeof google == 'undefined') {
+                    // jsList = ['//imasdk.googleapis.com/js/sdkloader/ima3.js', '/StaticFiles/RealMadridResponsive/javascripts/video_player.js', '//cdn.streamroot.io/videojs-hlsjs-plugin/1/stable/videojs-hlsjs-plugin.js', '//cdn.streamroot.io/videojs-hls-dna-plugin/1/stable/videojs-hls-dna-plugin.js#streamrootKey=d8fd9915-4ff7-4e00-aee7-db0e886d0dfb'];
+                    jsList = ['//imasdk.googleapis.com/js/sdkloader/ima3.js', '/StaticFiles/RealMadridResponsive/javascripts/video_player.js'];
+                  }
+                  loadList(jsList, 0, function() {
+                    videoInit(_this);
+                  });
+                } else {
+                  videoInit(_this);
+                }
+              }, // open
+              beforeClose: function(data, element) {
+                if (_bgvid) {
+                  if ((_bgvid.paused || _bgvid.ended) && _bgvid.readyState > 2) {
+                    _bgvid.play();
+                  }
+                }
+                var $player = this.currItem.inlineElement.find('.video-js').attr('id');
+                var tech = videojs($player).techName_;
+                if (tech == 'Flash') {
+                  if ($player) {
+                    videojs($player).dispose();
+                  }
+                }
+              }
+            }
+          })
+      }
+      element.magnificPopup({
+        removalDelay: 0,
+        items: {
+          type: "inline",
+          src: source
+        },
+        callbacks: {
+          beforeOpen: function() {
+            if (_bgvid) {
+              if (_bgvid.currentTime > 0 && !_bgvid.paused && !_bgvid.ended && _bgvid.readyState > 2) {
+                _bgvid.pause();
+              }
+            }
+          },
+          open: function(data, element) {
+            var _this = this,
+              videoInit = function(popEl) {
+                var target = popEl.currItem.inlineElement.find(".m_streaming_player");
+                RM.videojs_hd.instancia_video({
+                  datos: thatelement,
+                  target: target,
+                  autoplay: true
+                });
+              };
+            if (typeof RM.videojs_hd == 'undefined') {
+              // Carga video y Streamroot sin jquery
+              // var jsList = ['/StaticFiles/RealMadridResponsive/javascripts/video_player.js', '//cdn.streamroot.io/videojs-hlsjs-plugin/1/stable/videojs-hlsjs-plugin.js', '//cdn.streamroot.io/videojs-hls-dna-plugin/1/stable/videojs-hls-dna-plugin.js#streamrootKey=d8fd9915-4ff7-4e00-aee7-db0e886d0dfb'];
+              var jsList = ['/StaticFiles/RealMadridResponsive/javascripts/video_player.js'];
+              if (typeof google == 'undefined') {
+                // jsList = ['//imasdk.googleapis.com/js/sdkloader/ima3.js', '/StaticFiles/RealMadridResponsive/javascripts/video_player.js', '//cdn.streamroot.io/videojs-hlsjs-plugin/1/stable/videojs-hlsjs-plugin.js', '//cdn.streamroot.io/videojs-hls-dna-plugin/1/stable/videojs-hls-dna-plugin.js#streamrootKey=d8fd9915-4ff7-4e00-aee7-db0e886d0dfb'];
+                jsList = ['//imasdk.googleapis.com/js/sdkloader/ima3.js', '/StaticFiles/RealMadridResponsive/javascripts/video_player.js'];
+              }
+              loadList(jsList, 0, function() {
+                videoInit(_this);
+              });
+            } else {
+              videoInit(_this);
+            }
+          }, // open
+          beforeClose: function(data, element) {
+            if (_bgvid) {
+              if ((_bgvid.paused || _bgvid.ended) && _bgvid.readyState > 2) {
+                _bgvid.play();
+              }
+            }
+            var $player = this.currItem.inlineElement.find('.video-js').attr('id');
+            var tech = videojs($player).techName_;
+            if (tech == 'Flash') {
+              if ($player) {
+                videojs($player).dispose();
+              }
+            }
+          }
+        }
+      });
+    });
+  }
+});

@@ -1,0 +1,34 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    font-size: 15px;
+    font-family: roboto;
+}
+nav{
+    background: #e84118;
+}
+nav #menu li a{
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 10px;
+    display: block;
+text
+
+}
+nav #menu li:hover a{
+    background-color:#bdc3c7;
+    color: #00a8ff;
+    
+    transition: all 0.5s;
+}
+#menu{
+    list-style-type:none;
+    display: flex;
+}
+#inputSo {
+    width: 30px;
+}
+label{
+    border-top:none;
+    bordor-bottom:none;
+}

@@ -1,0 +1,17 @@
+D:\c#\unit 9\listbox\bin\Debug\netcoreapp3.1\listbox.exe
+D:\c#\unit 9\listbox\bin\Debug\netcoreapp3.1\listbox.deps.json
+D:\c#\unit 9\listbox\bin\Debug\netcoreapp3.1\listbox.runtimeconfig.json
+D:\c#\unit 9\listbox\bin\Debug\netcoreapp3.1\listbox.runtimeconfig.dev.json
+D:\c#\unit 9\listbox\bin\Debug\netcoreapp3.1\listbox.dll
+D:\c#\unit 9\listbox\bin\Debug\netcoreapp3.1\listbox.pdb
+D:\c#\unit 9\listbox\obj\Debug\netcoreapp3.1\listbox.csproj.AssemblyReference.cache
+D:\c#\unit 9\listbox\obj\Debug\netcoreapp3.1\listbox.Form1.resources
+D:\c#\unit 9\listbox\obj\Debug\netcoreapp3.1\listbox.csproj.GenerateResource.cache
+D:\c#\unit 9\listbox\obj\Debug\netcoreapp3.1\listbox.GeneratedMSBuildEditorConfig.editorconfig
+D:\c#\unit 9\listbox\obj\Debug\netcoreapp3.1\listbox.AssemblyInfoInputs.cache
+D:\c#\unit 9\listbox\obj\Debug\netcoreapp3.1\listbox.AssemblyInfo.cs
+D:\c#\unit 9\listbox\obj\Debug\netcoreapp3.1\listbox.csproj.CoreCompileInputs.cache
+D:\c#\unit 9\listbox\obj\Debug\netcoreapp3.1\listbox.dll
+D:\c#\unit 9\listbox\obj\Debug\netcoreapp3.1\listbox.pdb
+D:\c#\unit 9\listbox\obj\Debug\netcoreapp3.1\listbox.genruntimeconfig.cache
+D:\c#\unit 9\listbox\obj\Debug\netcoreapp3.1\listbox.fr_checKk_box.resources
