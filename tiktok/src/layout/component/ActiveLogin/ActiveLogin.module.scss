@@ -1,0 +1,11 @@
+.ActiveLogin {
+    display: flex;
+    flex-basis: auto;
+    svg {
+        height: 100%;
+        &:not(:first-child) {
+            margin-left: 16px;
+            padding-left: 3px;
+        }
+    }
+}

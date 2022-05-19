@@ -5,8 +5,27 @@
     justify-content: center;
     box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
     .inner {
-        background-color: #f1f1f2;
         width: 1150px;
+        padding: 0 24px 0 20px;
         height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .logo {
+            display: flex;
+            align-items: center;
+            img {
+                margin: auto 0;
+            }
+        }
+        .activeLogin {
+            display: flex;
+            flex-basis: auto;
+
+            &:not(:first-child) {
+                margin-left: 16px;
+                padding-left: 3px;
+            }
+        }
     }
 }
